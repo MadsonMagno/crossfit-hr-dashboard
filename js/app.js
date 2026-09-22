@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Helpers
     const getZone = (bpm) => {
-        // Simplified zones based on approx Max HR 200
+        // Zonas simplificadas para treinos estilo HYROX (Baseado em FC Máx ~200)
         if (bpm < 100) return { id: 0, label: 'Repouso', class: 'zone-0' };
-        if (bpm < 120) return { id: 1, label: 'Aquecimento', class: 'zone-1' };
-        if (bpm < 140) return { id: 2, label: 'Queima de Gordura', class: 'zone-2' };
-        if (bpm < 160) return { id: 3, label: 'Aeróbico', class: 'zone-3' };
-        if (bpm < 180) return { id: 4, label: 'Anaeróbico', class: 'zone-4' };
-        return { id: 5, label: 'Esforço Máximo', class: 'zone-5' };
+        if (bpm < 120) return { id: 1, label: 'Z1 - Aquecimento', class: 'zone-1' };
+        if (bpm < 140) return { id: 2, label: 'Z2 - Leve/Base', class: 'zone-2' };
+        if (bpm < 160) return { id: 3, label: 'Z3 - Moderado', class: 'zone-3' };
+        if (bpm < 180) return { id: 4, label: 'Z4 - Limiar/Intenso', class: 'zone-4' };
+        return { id: 5, label: 'Z5 - Esforço Máximo', class: 'zone-5' };
     };
 
     // UI Updates
