@@ -34,8 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (students.length === 0) {
             dashboardGrid.innerHTML = `
                 <div class="empty-state">
-                    <p>Nenhuma aula em andamento.</p>
-                    <p>Clique em <strong>Iniciar Aula</strong> para adicionar alunos.</p>
+                    <div class="empty-logo">GAMA <span>CF</span></div>
+                    <h2>Prontos para o próximo desafio?</h2>
+                    <p>Aguardando o início do treinamento HYROX...</p>
                 </div>
             `;
             return;

@@ -119,10 +119,41 @@ body {
 
 .empty-state {
     grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.empty-logo {
+    font-size: 5rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+}
+
+.empty-logo span {
+    color: var(--primary);
+}
+
+.empty-state h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
     color: var(--text-muted);
-    margin-top: 10vh;
     font-size: 1.2rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Student Card */
