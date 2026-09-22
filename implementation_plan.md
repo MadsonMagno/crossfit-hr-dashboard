@@ -31,11 +31,32 @@ Como você trabalhará neste PC e no seu PC pessoal:
 1. O repositório Git já foi inicializado na pasta `C:\Users\John.araujo\Downloads\crossfit-hr-dashboard`.
 2. Para sincronizar as máquinas, usaremos um fluxo simples via GitHub (detalhado no chat).
 
-## 5. Proposta de Arquitetura do MVP
-- **Tecnologias:** HTML, CSS (Vanilla, design dark mode premium voltado para academia) e JavaScript. Sem backend complexo no momento.
+## 5. Arquitetura do MVP e Identidade Visual (Concluído)
+- **Tecnologias:** HTML5, CSS3 puro (com variáveis, grid reativo, efeitos de brilho e dark mode) e JavaScript Vanilla. Sem dependências pesadas de backend no momento.
+- **Identidade:** Paleta Gama CF (Neon Green `#49e200`, Roxo `#6711a4` e fundo escuro `#0f1115`).
+- **Zonas de Treino:** Padrão HYROX (Repouso, Z1 Aquecimento a Z5 Esforço Máximo).
+- **Screensaver / Empty State:** Tela em repouso dinâmica aguardando o início do treino.
 
-## Próximos Passos (Requer Aprovação)
-1. Construir o visual (Dashboard premium na tela cheia).
-2. Implementar lógica de simulação para gerar batimentos.
-3. Implementar a tela de configuração de vinculação (Aluno x Pulseira).
-4. Integrar o Web Bluetooth API real (deixando pronto para o teste físico).
+## 6. Requisitos para o Próximo Passo (Hardware Real e Operação)
+
+### A. Negocial & Operacional (Alinhamento com a Cliente)
+- **Lote Piloto:** Definir aquisição de 1 a 2 unidades para teste de bancada ou lote inicial de 5 a 10 pulseiras para uma turma piloto.
+- **Modelo de Uso & Negócio:** Empréstimo geral, plano premium com pulseira inclusa (*Plano HYROX Performance*) ou permissão para pulseiras próprias dos alunos.
+- **Higienização:** Protocolo de limpeza das tiras elásticas de braço com álcool 70% ou rodízio de tiras extras entre aulas.
+- **Estação de Carga:** Hub/régua USB de 5 a 10 portas na recepção para recarga diária dos sensores.
+
+### B. Hardware & Infraestrutura
+- **Pulseiras:** Modelo óptico de braço (recomendado: **Coospo HW807** com BLE 5.0 e ANT+). Etiquetas físicas impermeáveis (`P01`, `P02`, etc.) para identificação rápida.
+- **Notebook da Recepção / Box:** Navegador Google Chrome ou Edge atualizado com Bluetooth 5.0 ativo. Posicionamento a no máximo 8–12m do salão de treino para evitar atenuação do sinal pelo corpo dos atletas.
+- **Conexão com a TV:** Cabo HDMI longo (Fase 1) ou navegador na TV via nuvem (Fase 2).
+- **Rede Wi-Fi:** Opcional na Fase 1 (funciona 100% offline via Bluetooth local); obrigatória com boa cobertura na Fase 2 (Nuvem).
+
+### C. Requisitos Técnicos de Software
+- **Contexto HTTPS Obrigatório:** A Web Bluetooth API só opera em conexões criptografadas (`https://`) ou em `localhost`. Para homologação no box, deploy automático via GitHub Pages ou Vercel.
+- **Módulo Web Bluetooth (`0x180D`):** Implementar leitura da característica `0x2A37` com parser de BPM de 8/16 bits e rotina transparente de reconexão automática (`gattserverdisconnected`).
+- **Vagas Dinâmicas:** Ajustar a interface para permitir adicionar ou remover alunos conforme o número de pulseiras pareadas.
+
+## 7. Status das Fases
+- [x] **Fase 1 (MVP Simulador):** Concluído e apresentado à cliente.
+- [ ] **Fase 1.5 (Validação com Hardware Real BLE):** Aguardando feedback da cliente e chegada das pulseiras piloto.
+- [ ] **Fase 2 (Nuvem / TV Desacoplada):** Backlog pós-validação física.
