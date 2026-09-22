@@ -19,7 +19,14 @@ Para lidar com a mesma pulseira (ex: "Pulseira 01") sendo usada pelo José de ma
 2. **Durante a Aula:** O painel mostra o nome do aluno atual (José) e sua zona de frequência cardíaca.
 3. **Fim da Aula:** O professor clica em "Encerrar Aula". Isso limpa os vínculos (José não está mais na Pulseira 01), deixando o painel pronto para vincular a Maria à Pulseira 01 na turma seguinte, sem precisar desconectar o hardware.
 
-## 4. Fluxo de Trabalho (Git)
+## 4. Fase 2: Sincronização em Nuvem (O Fim do Cabo HDMI)
+Como discutido, a necessidade de cabo HDMI será temporária (apenas para a Fase 1). Na próxima etapa, implementaremos uma arquitetura Cliente-Servidor em tempo real (ex: usando Firebase ou Supabase).
+- **Como funcionará:** 
+  1. A TV do ginásio abrirá uma URL (ex: `gamacf.com/tv`) que ficará lá para sempre. Ela apenas "escuta" a nuvem.
+  2. O PC da recepção acessará `gamacf.com/painel` para gerenciar a aula.
+  3. **Atenção ao Bluetooth:** O dispositivo que faz a leitura do Bluetooth precisa estar *fisicamente perto* dos alunos (alcance de ~10 metros). Se a recepção for longe do ginásio, usaremos um receptor (ex: tablet ou Raspberry Pi) que fica dentro do ginásio apenas lendo as pulseiras e mandando para a nuvem.
+
+## 5. Fluxo de Trabalho (Git)
 Como você trabalhará neste PC e no seu PC pessoal:
 1. O repositório Git já foi inicializado na pasta `C:\Users\John.araujo\Downloads\crossfit-hr-dashboard`.
 2. Para sincronizar as máquinas, usaremos um fluxo simples via GitHub (detalhado no chat).
