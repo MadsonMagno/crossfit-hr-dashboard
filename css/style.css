@@ -1,0 +1,310 @@
+:root {
+    --bg-dark: #0f1115;
+    --bg-card: #1c1f26;
+    --text-main: #ffffff;
+    --text-muted: #8b92a5;
+    
+    /* HR Zones Colors */
+    --zone-0: #8b92a5; /* Gray: Rest */
+    --zone-1: #00d0f5; /* Blue: Warm up (50-60%) */
+    --zone-2: #00e676; /* Green: Fat burn (60-70%) */
+    --zone-3: #ffea00; /* Yellow: Aerobic (70-80%) */
+    --zone-4: #ff9100; /* Orange: Anaerobic (80-90%) */
+    --zone-5: #ff1744; /* Red: Maximum (90-100%) */
+
+    --primary: #ff1744;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background-color: rgba(28, 31, 38, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 23, 68, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 23, 68, 0.4);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--text-muted);
+}
+
+.btn-secondary:hover {
+    color: white;
+    border-color: white;
+}
+
+.btn-danger {
+    background-color: transparent;
+    color: var(--zone-5);
+    border: 1px solid var(--zone-5);
+}
+
+.btn-danger:hover {
+    background-color: rgba(255, 23, 68, 0.1);
+}
+
+/* Dashboard Grid */
+.dashboard {
+    flex: 1;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-muted);
+    margin-top: 10vh;
+    font-size: 1.2rem;
+}
+
+/* Student Card */
+.student-card {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.student-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--current-color, var(--zone-0));
+    transition: background-color 0.5s ease;
+}
+
+.student-card.zone-0 { --current-color: var(--zone-0); }
+.student-card.zone-1 { --current-color: var(--zone-1); }
+.student-card.zone-2 { --current-color: var(--zone-2); }
+.student-card.zone-3 { --current-color: var(--zone-3); }
+.student-card.zone-4 { --current-color: var(--zone-4); }
+.student-card.zone-5 { 
+    --current-color: var(--zone-5);
+    animation: pulse-border 1s infinite alternate;
+}
+
+@keyframes pulse-border {
+    0% { border-color: rgba(255, 23, 68, 0.2); }
+    100% { border-color: rgba(255, 23, 68, 0.8); }
+}
+
+.student-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    text-align: left;
+}
+
+.hr-display {
+    display: flex;
+    align-items:baseline;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.bpm-value {
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--current-color, var(--text-main));
+    transition: color 0.5s ease;
+}
+
+.bpm-label {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-left: 8px;
+}
+
+.zone-label {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--current-color, var(--text-muted));
+    transition: color 0.5s ease;
+}
+
+.heart-icon {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 24px;
+    height: 24px;
+    fill: var(--current-color, var(--zone-0));
+    animation: heartbeat 1s infinite;
+    transition: fill 0.5s ease;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.modal-content h2 {
+    margin-bottom: 0.5rem;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: var(--primary);
+}
+
+.band-input {
+    flex: 0.5;
+    text-align: center;
+    background-color: rgba(0,0,0,0.2);
+    color: var(--text-muted);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 2rem;
+}
+
+/* Utils */
+.hidden {
+    display: none !important;
+}
