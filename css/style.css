@@ -12,7 +12,8 @@
     --zone-4: #ff9100; /* Orange: Anaerobic (80-90%) */
     --zone-5: #ff1744; /* Red: Maximum (90-100%) */
 
-    --primary: #ff1744;
+    --primary: #49e200; /* Gama CF Neon Green */
+    --secondary: #6711a4; /* Gama CF Deep Purple */
 }
 
 * {
@@ -75,13 +76,14 @@ body {
 
 .btn-primary {
     background-color: var(--primary);
-    color: white;
-    box-shadow: 0 4px 15px rgba(255, 23, 68, 0.3);
+    color: #000;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(73, 226, 0, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 23, 68, 0.4);
+    box-shadow: 0 6px 20px rgba(73, 226, 0, 0.5);
 }
 
 .btn-secondary {
