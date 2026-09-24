@@ -21,7 +21,7 @@
 
 ## Resumo dos Requisitos do Próximo Passo
 1. **Pulseira Real de Teste:** Receber a pulseira modelo que a Tamara providenciará para testar a conexão física.
-2. **Deploy HTTPS (GitHub Pages/Vercel):** Necessário para que o Chrome do celular Galaxy permita usar a Web Bluetooth API em conexões seguras.
+2. **Deploy HTTPS (Concluído ✅):** Projeto online no GitHub Pages ([https://madsonmagno.github.io/crossfit-hr-dashboard/](https://madsonmagno.github.io/crossfit-hr-dashboard/)) para rodar no Galaxy com Web Bluetooth API habilitado.
 3. **Módulo Web Bluetooth API:** Conexão com o serviço GATT Heart Rate (`0x180D`) das pulseiras reais.
 4. **Espelhamento Chromecast:** Validar o fluxo de espelhamento do Galaxy em modo paisagem (landscape) para a TV.
 
