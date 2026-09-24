@@ -31,32 +31,45 @@ Como você trabalhará neste PC e no seu PC pessoal:
 1. O repositório Git já foi inicializado na pasta `C:\Users\John.araujo\Downloads\crossfit-hr-dashboard`.
 2. Para sincronizar as máquinas, usaremos um fluxo simples via GitHub (detalhado no chat).
 
-## 5. Arquitetura do MVP e Identidade Visual (Concluído)
+## 5. Arquitetura do MVP, Identidade Visual e Debrief Pós-Treino (Concluído)
 - **Tecnologias:** HTML5, CSS3 puro (com variáveis, grid reativo, efeitos de brilho e dark mode) e JavaScript Vanilla. Sem dependências pesadas de backend no momento.
 - **Identidade:** Paleta Gama CF (Neon Green `#49e200`, Roxo `#6711a4` e fundo escuro `#0f1115`).
 - **Zonas de Treino:** Padrão HYROX (Repouso, Z1 Aquecimento a Z5 Esforço Máximo).
 - **Screensaver / Empty State:** Tela em repouso dinâmica aguardando o início do treino.
+- **Cronômetro de WOD:** Display de tempo decorrido no topo durante o treino.
+- **Relatório Final de Treino (Debrief da Sessão - Estilo Apple Watch):**
+  - Estimativa de Calorias (Kcal) queimadas no treino.
+  - BPM Médio e BPM Pico por atleta.
+  - Zona Predominante de esforço com badge estilizado.
+  - Barra de distribuição percentual de tempo nas zonas (Z1 a Z5 com cores representativas).
+  - Feedback dinâmico do treinador (*"⚡ Alvo HYROX Atingido!"*, *"💪 Excelente Base Aeróbica"*, etc.).
+  - Layout otimizado para foto de celular/Instagram na TV.
+- **Formulário Dinâmico de Turma:** Permite ao professor adicionar ou remover vagas de alunos livremente conforme o tamanho da aula.
 
-## 6. Requisitos para o Próximo Passo (Hardware Real e Operação)
+## 6. Arquitetura Operacional no Box: Smartphone Galaxy + Chromecast
 
-### A. Negocial & Operacional (Alinhamento com a Cliente)
-- **Lote Piloto:** Definir aquisição de 1 a 2 unidades para teste de bancada ou lote inicial de 5 a 10 pulseiras para uma turma piloto.
-- **Modelo de Uso & Negócio:** Empréstimo geral, plano premium com pulseira inclusa (*Plano HYROX Performance*) ou permissão para pulseiras próprias dos alunos.
-- **Higienização:** Protocolo de limpeza das tiras elásticas de braço com álcool 70% ou rodízio de tiras extras entre aulas.
-- **Estação de Carga:** Hub/régua USB de 5 a 10 portas na recepção para recarga diária dos sensores.
+Após alinhamento com a cliente (Tamara), foi identificado que o **computador da recepção é incompatível** com o projeto devido à sobrecarga de atendimento e risco de desconexão.
 
-### B. Hardware & Infraestrutura
-- **Pulseiras:** Modelo óptico de braço (recomendado: **Coospo HW807** com BLE 5.0 e ANT+). Etiquetas físicas impermeáveis (`P01`, `P02`, etc.) para identificação rápida.
-- **Notebook da Recepção / Box:** Navegador Google Chrome ou Edge atualizado com Bluetooth 5.0 ativo. Posicionamento a no máximo 8–12m do salão de treino para evitar atenuação do sinal pelo corpo dos atletas.
-- **Conexão com a TV:** Cabo HDMI longo (Fase 1) ou navegador na TV via nuvem (Fase 2).
-- **Rede Wi-Fi:** Opcional na Fase 1 (funciona 100% offline via Bluetooth local); obrigatória com boa cobertura na Fase 2 (Nuvem).
+Em contrapartida, o box já possui um **Samsung Galaxy ocioso** e uma **TV com Chromecast**.
 
-### C. Requisitos Técnicos de Software
-- **Contexto HTTPS Obrigatório:** A Web Bluetooth API só opera em conexões criptografadas (`https://`) ou em `localhost`. Para homologação no box, deploy automático via GitHub Pages ou Vercel.
-- **Módulo Web Bluetooth (`0x180D`):** Implementar leitura da característica `0x2A37` com parser de BPM de 8/16 bits e rotina transparente de reconexão automática (`gattserverdisconnected`).
-- **Vagas Dinâmicas:** Ajustar a interface para permitir adicionar ou remover alunos conforme o número de pulseiras pareadas.
+### Como funcionará:
+1. **Controle na Mão do Treinador:** O smartphone Galaxy fica no balcão do coach ou com o professor.
+2. **Web Bluetooth no Chrome Mobile:** O navegador Google Chrome para Android possui suporte nativo à **Web Bluetooth API**. O professor acessa a URL do dashboard (com HTTPS) e conecta a pulseira do aluno diretamente pelo diálogo nativo do Android.
+3. **Espelhamento sem Fio (Chromecast / Smart View):**
+   - O Galaxy espelha sua tela na TV via **Smart View / Google Home**.
+   - Colocando o celular na horizontal (modo paisagem), a imagem preenche a TV em 16:9 perfeitamente, sem necessidade de cabo HDMI atravessando o box.
+4. **Vantagens dessa Solução:**
+   - **Custo Zero:** Utiliza equipamentos que o box já possui.
+   - **Independência da Recepção:** O recepcionista continua trabalhando normalmente sem interferir na aula.
+   - **Proximidade do Sinal:** O celular fica no tatame com o coach, garantindo que o sinal Bluetooth com as pulseiras seja forte e estável.
 
-## 7. Status das Fases
-- [x] **Fase 1 (MVP Simulador):** Concluído e apresentado à cliente.
-- [ ] **Fase 1.5 (Validação com Hardware Real BLE):** Aguardando feedback da cliente e chegada das pulseiras piloto.
-- [ ] **Fase 2 (Nuvem / TV Desacoplada):** Backlog pós-validação física.
+## 7. Requisitos Técnicos para os Próximos Passos
+1. **Pulseira Real de Teste:** Testar a leitura física com a pulseira modelo fornecida pela Tamara.
+2. **Deploy HTTPS (GitHub Pages):** Publicar o repositório no GitHub Pages para que o Chrome do Galaxy execute a Web Bluetooth API em contexto seguro.
+3. **Driver Web Bluetooth (`0x180D`):** Implementar no `app.js` a função `navigator.bluetooth.requestDevice` com leitura da característica `0x2A37`.
+4. **Fase 2 (Nuvem / Futuro):** Quando a academia quiser histórico de atletas, matrículas e ranking perpétuo, migrar para Supabase/Firebase.
+
+## 8. Status das Fases
+- [x] **Fase 1 (MVP Simulador, Gestão de Turma & Debrief):** Concluído e validado.
+- [ ] **Fase 1.5 (Homologação Real no Galaxy + Chromecast + Pulseira):** Próxima etapa em andamento.
+- [ ] **Fase 2 (Nuvem, Histórico e Multi-Telas):** Futuro.

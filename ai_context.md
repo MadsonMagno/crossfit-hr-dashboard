@@ -10,18 +10,23 @@
 - **Autor:** MadsonMagno.
 
 ## Status Atual
-- **MVP Apresentado à Cliente:** O dashboard com visual Gama CF (neon/roxo dark mode), zonas HYROX (Z1 a Z5), protetor de tela/screensaver e simulador orgânico de batimentos foi concluído e apresentado.
-- **Momento do Projeto:** Aguardando o retorno/feedback da cliente (dona/gestor do box).
-- **Próxima Etapa Mapeada:** Transição do simulador para hardware real (pulseiras Coospo HW807 via Web Bluetooth API), configuração de deploy HTTPS e definição de regras operacionais no box.
+- **Feedback da Cliente (Tamara - Gama CF):** Validou e elogiou o MVP ("Achei top"). Comprometeu-se a fornecer 1 pulseira modelo para início imediato dos testes reais.
+- **Novas Features Implementadas com Sucesso:**
+  1. **Relatório Final pós-treino (Debrief HYROX):** Tela de fechamento ao encerrar o treino exibindo Kcal gastas, BPM médio/máximo, zona predominante, barra de distribuição de tempo nas zonas (Z1 a Z5 no estilo Apple Watch) e dicas do coach para debrief em frente à TV.
+  2. **Cronômetro de WOD:** Mostrador de tempo decorrido no topo da tela durante o treino.
+  3. **Vagas Dinâmicas de Alunos:** Formulário de início de aula agora permite adicionar/remover atletas conforme a turma (ex: Tamara, Pedro Lagarto, Madson).
+- **Decisão Estratégica de Hardware (Adequação da Cliente):**
+  - **Problema resolvido:** O PC da recepção é muito movimentado e causaria conflitos/quedas se espelhado na TV.
+  - **Solução aprovada:** Usar o **smartphone Samsung Galaxy ocioso** do próprio box para gerenciar a aula e espelhar na TV via **Chromecast** (Smart View). O Google Chrome no Android tem suporte nativo total à Web Bluetooth API!
 
 ## Resumo dos Requisitos do Próximo Passo
-1. **Negocial:** Feedback da cliente, definição de quantidade do lote piloto (1 a 2 unidades para teste de bancada ou lote inicial de 5 a 10) e modelo de uso/higienização.
-2. **Hardware:** Pulseiras ópticas de braço (BLE 5.0 + ANT+, foco Coospo HW807), notebook da recepção com Google Chrome/Edge e Bluetooth 5.0, hub USB para recarga diária e cabo HDMI (na Fase 1).
-3. **Software/Técnico:** Módulo Web Bluetooth (`navigator.bluetooth` lendo serviço GATT `0x180D`), deploy com HTTPS (GitHub Pages ou similar, exigência do Chrome) e rotina de reconexão.
-4. **Fase 2 (Futuro):** Migração para Nuvem (Supabase/Firebase) para a TV operar independente sem cabo HDMI.
+1. **Pulseira Real de Teste:** Receber a pulseira modelo que a Tamara providenciará para testar a conexão física.
+2. **Deploy HTTPS (GitHub Pages/Vercel):** Necessário para que o Chrome do celular Galaxy permita usar a Web Bluetooth API em conexões seguras.
+3. **Módulo Web Bluetooth API:** Conexão com o serviço GATT Heart Rate (`0x180D`) das pulseiras reais.
+4. **Espelhamento Chromecast:** Validar o fluxo de espelhamento do Galaxy em modo paisagem (landscape) para a TV.
 
 ## Instruções para a IA (Quando lido em nova máquina)
 Se você (IA) estiver lendo este arquivo em uma nova sessão no outro computador:
-1. Leia este arquivo, o `implementation_plan.md` e o `task.md` para situar o contexto.
-2. O MVP já está pronto e foi apresentado. Verifique se o usuário já tem o feedback da cliente ou se ele deseja iniciar a implementação do módulo de Bluetooth / deploy HTTPS / dinamizar vagas de alunos.
-3. Não sobrescreva a lógica do `app.js` sem necessidade; mantenha a compatibilidade com o modo simulador enquanto o hardware real não estiver em mãos.
+1. Leia este arquivo, o `implementation_plan.md` e o `task.md`.
+2. O dashboard atual possui: simulador realista, cronômetro, gestão dinâmica de atletas e **Relatório Debrief Pós-WOD** completo.
+3. As próximas tarefas de código prioritárias são: criar a camada de Web Bluetooth (chaveando entre modo real e simulador) e configurar o deploy HTTPS no GitHub Pages para rodar no Galaxy.
