@@ -387,22 +387,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnNewWorkout.addEventListener('click', () => {
-        if (confirm('Deseja encerrar este debrief e preparar o sistema para a próxima turma?')) {
-            if (simulationInterval) clearInterval(simulationInterval);
-            stopWorkoutTimer();
+        if (simulationInterval) clearInterval(simulationInterval);
+        stopWorkoutTimer();
 
-            students = [];
-            totalWorkoutSeconds = 0;
-            timerDisplay.textContent = '00:00:00';
-            timerContainer.classList.add('hidden');
+        students = [];
+        totalWorkoutSeconds = 0;
+        timerDisplay.textContent = '00:00:00';
+        timerContainer.classList.add('hidden');
 
-            debriefModal.classList.add('hidden');
-            btnEndClass.classList.add('hidden');
-            btnStartClass.classList.remove('hidden');
+        debriefModal.classList.add('hidden');
+        btnEndClass.classList.add('hidden');
+        btnStartClass.classList.remove('hidden');
 
-            renderDashboard();
-            initSetupForm();
-        }
+        renderDashboard();
+        initSetupForm();
     });
 
     // Initialize with default state
