@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         rowDiv.innerHTML = `
             <input type="text" class="student-name-input" placeholder="Nome do Atleta" value="${nameVal}" required>
-            <input type="text" value="Pulseira #${currentIdx}" disabled class="band-input">
+            <button type="button" class="btn btn-sm btn-outline btn-connect-band" style="flex: 0.5; margin-right: 10px;">🔗 Conectar BLE</button>
             <button type="button" class="btn-icon-danger btn-remove-row" title="Remover Aluno">&times;</button>
         `;
 
@@ -82,6 +82,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 rowDiv.remove();
             } else {
                 rowDiv.querySelector('.student-name-input').value = '';
+            }
+        });
+        
+        const btnConnect = rowDiv.querySelector('.btn-connect-band');
+        btnConnect.addEventListener('click', async () => {
+            try {
+                // Solicita o pareamento com dispositivo que tenha serviço de Heart Rate
+                const device = await navigator.bluetooth.requestDevice({
+                    filters: [{ services: ['heart_rate'] }]
+                });
+                
+                btnConnect.textContent = 'Conectando...';
+                
+                const server = await device.gatt.connect();
+                const service = await server.getPrimaryService('heart_rate');
+                const characteristic = await service.getCharacteristic('heart_rate_measurement');
+                
+                await characteristic.startNotifications();
+                
+                btnConnect.textContent = '✅ Conectado';
+                btnConnect.classList.add('btn-success');
+                btnConnect.classList.remove('btn-outline');
+                
+                // Armazena no DOM do row para recuperarmos no submit
+                rowDiv.bluetoothData = { device, characteristic };
+                
+            } catch (error) {
+                console.error('Bluetooth error:', error);
+                btnConnect.textContent = '❌ Falhou. Tentar Novamente';
             }
         });
 
@@ -174,15 +203,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         simulationInterval = setInterval(() => {
             students.forEach(student => {
-                // Realistic drift towards current target
-                if (Math.abs(student.bpm - student.targetBpm) < 3) {
-                    student.targetBpm = Math.floor(Math.random() * (195 - 90 + 1)) + 90;
-                }
+                if (!student.isRealBluetooth) {
+                    // Realistic drift towards current target (apenas para simulação)
+                    if (Math.abs(student.bpm - student.targetBpm) < 3) {
+                        student.targetBpm = Math.floor(Math.random() * (195 - 90 + 1)) + 90;
+                    }
 
-                if (student.bpm < student.targetBpm) {
-                    student.bpm += Math.floor(Math.random() * 3) + 1;
-                } else if (student.bpm > student.targetBpm) {
-                    student.bpm -= Math.floor(Math.random() * 3) + 1;
+                    if (student.bpm < student.targetBpm) {
+                        student.bpm += Math.floor(Math.random() * 3) + 1;
+                    } else if (student.bpm > student.targetBpm) {
+                        student.bpm -= Math.floor(Math.random() * 3) + 1;
+                    }
                 }
 
                 const currentZone = getZone(student.bpm);
@@ -342,18 +373,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = row.querySelector('.student-name-input').value.trim();
             if (name !== '') {
                 const startBpm = Math.floor(Math.random() * 25) + 85;
-                students.push({
+                const studentData = {
                     id: validIdx,
                     name: name,
-                    bandId: `Pulseira #${validIdx}`,
-                    bpm: startBpm,
+                    bandId: row.bluetoothData ? 'Pulseira Real BLE' : `Simulada #${validIdx}`,
+                    bpm: startBpm, // será sobrescrito pelo BLE assim que o primeiro pulso chegar
                     targetBpm: startBpm + 40,
                     maxBpm: startBpm,
                     bpmSum: startBpm,
                     bpmCount: 1,
                     zoneSeconds: [0, 0, 0, 0, 0, 0],
-                    calories: 0
-                });
+                    calories: 0,
+                    isRealBluetooth: !!row.bluetoothData,
+                    bluetoothCharacteristic: row.bluetoothData ? row.bluetoothData.characteristic : null
+                };
+
+                if (studentData.isRealBluetooth) {
+                    studentData.bluetoothCharacteristic.addEventListener('characteristicvaluechanged', (event) => {
+                        const value = event.target.value;
+                        const flags = value.getUint8(0);
+                        const rate16Bits = flags & 0x1;
+                        let currentBpm = 0;
+                        
+                        if (rate16Bits) {
+                            currentBpm = value.getUint16(1, true);
+                        } else {
+                            currentBpm = value.getUint8(1);
+                        }
+                        
+                        // Encontra o atleta no estado atual e atualiza
+                        const studentObj = students.find(s => s.id === studentData.id);
+                        if (studentObj) {
+                            studentObj.bpm = currentBpm;
+                        }
+                    });
+                }
+
+                students.push(studentData);
                 validIdx++;
             }
         });
