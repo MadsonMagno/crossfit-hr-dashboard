@@ -371,7 +371,7 @@ body {
 }
 
 .students-inputs-list {
-    max-height: 45vh;
+    max-height: 65vh;
     overflow-y: auto;
     padding-right: 6px;
     margin-bottom: 1rem;
@@ -420,9 +420,9 @@ input {
     background-color: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
     color: white;
-    padding: 0.8rem 1rem;
+    padding: 0.6rem 0.8rem;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     outline: none;
     transition: border-color 0.2s;
 }
@@ -685,33 +685,83 @@ input:focus {
 
 /* Responsividade e Paisagem (Landscape / TV) */
 @media (max-width: 1024px) or (max-height: 600px) {
+    /* Main Dashboard Shrink */
     .dashboard {
-        padding: 1rem;
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        padding: 0.5rem;
+        gap: 0.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
     }
     .student-card {
-        padding: 1rem;
+        padding: 0.5rem;
     }
     .student-name {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+    }
+    .hr-display {
+        margin: 0.5rem 0;
     }
     .bpm-value {
-        font-size: 3.5rem;
+        font-size: 2.2rem;
     }
     .bpm-label {
-        font-size: 1rem;
+        font-size: 0.7rem;
     }
     .zone-label {
-        padding: 0.3rem 0.8rem;
-        font-size: 0.8rem;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.65rem;
     }
     .heart-icon {
-        width: 18px;
-        height: 18px;
-        top: 1rem;
-        right: 1rem;
+        width: 12px;
+        height: 12px;
+        top: 0.5rem;
+        right: 0.5rem;
     }
+    
+    /* Setup Modal Compact */
+    .modal-content {
+        padding: 1.2rem;
+    }
+    .input-row-student {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Debrief Modal Ultra-Compact for TV Fitting */
+    .debrief-overlay {
+        padding: 0.5rem;
+    }
+    .debrief-container {
+        padding: 1rem;
+    }
+    .debrief-header {
+        padding-bottom: 0.5rem;
+        gap: 0.5rem;
+    }
+    .debrief-title h2 { font-size: 1.2rem; }
+    .debrief-subtitle { font-size: 0.8rem; }
+    .metric-pill { padding: 0.4rem 0.8rem; }
+    .metric-value { font-size: 1rem; }
+    
+    .debrief-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.5rem;
+        padding: 0.5rem 0;
+    }
+    .debrief-card {
+        padding: 0.6rem;
+        gap: 0.4rem;
+        border-radius: 8px;
+    }
+    .debrief-athlete-name { font-size: 0.9rem; }
+    .debrief-stats-row { padding: 0.4rem; border-radius: 6px; }
+    .stat-num { font-size: 0.9rem; }
+    .stat-lbl { font-size: 0.5rem; }
+    .predominant-badge { padding: 0.2rem 0.5rem; font-size: 0.6rem; }
+    .coach-tip { padding: 0.2rem; font-size: 0.6rem; }
+    .zone-distribution-header { font-size: 0.55rem; }
+    .legend-item { font-size: 0.55rem; }
+    .debrief-footer { padding-top: 0.5rem; }
+    .debrief-hint { font-size: 0.7rem; }
 }
 
 .zone-legend {
