@@ -87,6 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const btnConnect = rowDiv.querySelector('.btn-connect-band');
         btnConnect.addEventListener('click', async () => {
+            if (!navigator.bluetooth) {
+                alert("Erro: Bluetooth não disponível. Certifique-se de estar usando o Google Chrome e acessando pelo link online (HTTPS do GitHub Pages) e não pelo arquivo local do seu PC.");
+                return;
+            }
+
             try {
                 // Solicita o pareamento com dispositivo que tenha serviço de Heart Rate
                 const device = await navigator.bluetooth.requestDevice({
