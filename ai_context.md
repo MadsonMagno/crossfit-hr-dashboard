@@ -28,5 +28,5 @@
 ## Instruções para a IA (Quando lido em nova máquina)
 Se você (IA) estiver lendo este arquivo em uma nova sessão no outro computador:
 1. Leia este arquivo, o `implementation_plan.md` e o `task.md`.
-2. O dashboard atual possui: simulador realista, cronômetro, gestão dinâmica de atletas e **Relatório Debrief Pós-WOD** completo.
-3. As próximas tarefas de código prioritárias são: criar a camada de Web Bluetooth (chaveando entre modo real e simulador) e configurar o deploy HTTPS no GitHub Pages para rodar no Galaxy.
+2. O dashboard atual possui: simulador realista, cronômetro, gestão de atletas, **Relatório Debrief Pós-WOD** completo e módulo **Web Bluetooth API** (GATT 0x180D) rodando de forma híbrida com a simulação. O layout foi otimizado agressivamente para espelhamento (Landscape) em TVs.
+3. A prioridade técnica agora é aguardar a validação do cliente testando a pulseira real no smartphone Galaxy. Após validação física, o próximo grande passo estrutural de código é iniciar a **Fase 2 (Sincronização em Nuvem com Firebase/Supabase)** para remover a dependência de espelhamento/cabo.

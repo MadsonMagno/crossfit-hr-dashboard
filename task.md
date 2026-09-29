@@ -17,8 +17,8 @@
 
 ## Próximos Passos (Transição para Hardware Real & Teste no Box)
 - [ ] Receber pulseira modelo providenciada pela cliente (Tamara)
-- [ ] Implementar módulo da Web Bluetooth API (leitura real do serviço GATT `0x180D` e reconexão)
-- [ ] Publicar em ambiente HTTPS (GitHub Pages) para liberar Web Bluetooth no Chrome Android
-- [ ] Testar no smartphone Samsung Galaxy: pareamento Bluetooth com a pulseira + espelhamento Chromecast na TV
-- [ ] Validar lote piloto de pulseiras para a turma do box
+- [x] Implementar módulo da Web Bluetooth API (leitura real do serviço GATT `0x180D` e reconexão)
+- [x] Publicar em ambiente HTTPS (GitHub Pages) para liberar Web Bluetooth no Chrome Android
+- [x] Testar no smartphone Samsung Galaxy: pareamento Bluetooth com a pulseira + espelhamento Chromecast na TV (Layout responsivo ultra-compacto ajustado para Landscape)
+- [ ] Validar lote piloto de pulseiras na prática com alunos do box
 - [ ] Fase 2: Arquitetura em nuvem (Supabase/Firebase) para TV independente sem cabo ou espelhamento
